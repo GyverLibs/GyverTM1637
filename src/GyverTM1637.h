@@ -21,10 +21,11 @@
     
     Версии:
     v1.4 - поправлены типы данных и ошибки, добавлена совместимость с ESP
+    v1.4.1 - совместимость ESP32
 */
 
-#ifndef GyverTM1637_h
-#define GyverTM1637_h
+#ifndef _GyverTM1637_h
+#define _GyverTM1637_h
 #include <inttypes.h>
 #include <Arduino.h>
 class GyverTM1637 {
@@ -106,7 +107,7 @@ uint8_t digToHEX(uint8_t digit);		// вернёт код цифры для displ
 
 /************** БУКВЫ И СИМВОЛЫ *****************/
 
-#if defined(ESP8266)
+#ifndef AVR
 #define _A 0x77
 #define _B 0x7f
 #define _C 0x39
