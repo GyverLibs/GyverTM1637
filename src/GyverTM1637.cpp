@@ -179,11 +179,11 @@ void GyverTM1637::brightness(uint8_t brightness, uint8_t SetData, uint8_t SetAdd
 }
 
 
-void GyverTM1637::point(boolean PointFlag)
+void GyverTM1637::point(boolean PointFlag, bool upd)
 {
     if (PointFlag) PointData = 0x80;
     else PointData = 0;
-    update();
+    if (upd) update();
 }
 
 // ************************** ВСЯКИЕ ФУНКЦИИ *****************************

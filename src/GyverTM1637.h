@@ -22,6 +22,7 @@
     Версии:
     v1.4 - поправлены типы данных и ошибки, добавлена совместимость с ESP
     v1.4.1 - совместимость ESP32
+    v1.4.2 - чуть переделан вывод точки, можно не обновлять
 */
 
 #ifndef _GyverTM1637_h
@@ -51,7 +52,7 @@ public:
     
     void clear(void);														// очистить дисплей
     
-    void point(boolean PointFlag);											// вкл / выкл точку (POINT_ON / POINT_OFF)
+    void point(boolean PointFlag, bool upd = true);											// вкл / выкл точку (POINT_ON / POINT_OFF)
 
     void brightness(uint8_t bright, uint8_t = 0x40, uint8_t = 0xc0);		// яркость 0 - 7	
     
