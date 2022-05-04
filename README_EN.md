@@ -1,3 +1,5 @@
+This is an automatic translation, may be incorrect in some places. See sources and examples!
+
 # GyverTM1637
 GyverTM1637 - library for 7-segment display on TM1637 chip with a lot of fun
 - Output numbers in an array or targeting
