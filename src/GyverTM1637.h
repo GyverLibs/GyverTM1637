@@ -47,6 +47,8 @@ public:
     void displayClockTwist(uint8_t hrs, uint8_t mins, int delayms);			// выводит часы и минуты с эффектом скрутки
     
     void displayInt(int value);												// выводит число от -999 до 9999 (да, со знаком минус)
+	void displayIntScroll(int value, int delayms);
+	void displayIntTwist(int value, int delayms);
     
     void runningString(uint8_t DispData[], byte amount, int delayMs);  		// бегущая строка (array, sizeof(array), задержка в мс)
     
@@ -54,7 +56,7 @@ public:
     
     void point(boolean PointFlag, bool upd = true);											// вкл / выкл точку (POINT_ON / POINT_OFF)
 
-    void brightness(uint8_t bright, uint8_t = 0x40, uint8_t = 0xc0);		// яркость 0 - 7	
+    void brightness(uint8_t bright, bool upd = true, uint8_t = 0x40, uint8_t = 0xc0);		// яркость 0 - 7	
     
     void scroll(uint8_t BitAddr, uint8_t DispData, int delayms);				// обновить значение прокруткой (адрес, ЦИФРА, задержка в мс)
     void scroll(uint8_t DispData[], int delayms);							// обновить значение прокруткой (массив ЦИФР, задержка в мс)

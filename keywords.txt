@@ -15,7 +15,10 @@ GyverTM1637	KEYWORD1
 
 display	KEYWORD2
 displayByte	KEYWORD2
+
 displayInt	KEYWORD2
+displayIntScroll	KEYWORD2
+displayIntTwist	KEYWORD2
 
 displayClock	KEYWORD2
 displayClockTwist	KEYWORD2

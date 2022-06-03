@@ -170,12 +170,12 @@ void GyverTM1637::update(void)
     displayByte(lastData);
 }
 
-void GyverTM1637::brightness(uint8_t brightness, uint8_t SetData, uint8_t SetAddr)
+void GyverTM1637::brightness(uint8_t brightness, bool upd, uint8_t SetData, uint8_t SetAddr)
 {
     Cmd_SetData = SetData;
     Cmd_SetAddr = SetAddr;
     Cmd_DispCtrl = 0x88 + brightness;//Set the brightness and it takes effect the next time it displays.
-    update();
+    if (upd) update();
 }
 
 
@@ -221,7 +221,6 @@ void GyverTM1637::displayClockTwist(uint8_t hrs, uint8_t mins, int delayms) {
 void GyverTM1637::displayInt(int value) {
     if (value > 9999 || value < -999) return;
     boolean negative = false;
-    boolean neg_flag = false;
     byte digits[4];
     if (value < 0) negative = true;	
     value = abs(value);	
@@ -251,6 +250,74 @@ void GyverTM1637::displayInt(int value) {
         }
     }
     GyverTM1637::display(digits);
+}
+
+void GyverTM1637::displayIntScroll(int value, int delayms) {
+    if (value > 9999 || value < -999) return;
+    boolean negative = false;
+    byte digits[4];
+    if (value < 0) negative = true;	
+    value = abs(value);	
+    digits[0] = (int)value / 1000;      	// количесто тысяч в числе
+    uint16_t b = (int)digits[0] * 1000; 	// вспомогательная переменная
+    digits[1] = ((int)value - b) / 100; 	// получем количество сотен
+    b += digits[1] * 100;               	// суммируем сотни и тысячи
+    digits[2] = (int)(value - b) / 10;  	// получем десятки
+    b += digits[2] * 10;                	// сумма тысяч, сотен и десятков
+    digits[3] = value - b;              	// получаем количество единиц
+    
+    if (!negative) {
+        for (byte i = 0; i < 3; i++) {
+            if (digits[i] == 0) digits[i] = 10;
+            else break;
+        }
+    } else {
+        for (byte i = 0; i < 3; i++) {
+            if (digits[i] == 0) {
+                if (digits[i + 1] == 0){
+                    digits[i] = 10;
+                } else {
+                    digits[i] = 11;
+                    break;
+                }
+            }			
+        }
+    }
+    GyverTM1637::scroll(digits, delayms);
+}
+
+void GyverTM1637::displayIntTwist(int value, int delayms) {
+    if (value > 9999 || value < -999) return;
+    boolean negative = false;
+    byte digits[4];
+    if (value < 0) negative = true;	
+    value = abs(value);	
+    digits[0] = (int)value / 1000;      	// количесто тысяч в числе
+    uint16_t b = (int)digits[0] * 1000; 	// вспомогательная переменная
+    digits[1] = ((int)value - b) / 100; 	// получем количество сотен
+    b += digits[1] * 100;               	// суммируем сотни и тысячи
+    digits[2] = (int)(value - b) / 10;  	// получем десятки
+    b += digits[2] * 10;                	// сумма тысяч, сотен и десятков
+    digits[3] = value - b;              	// получаем количество единиц
+    
+    if (!negative) {
+        for (byte i = 0; i < 3; i++) {
+            if (digits[i] == 0) digits[i] = 10;
+            else break;
+        }
+    } else {
+        for (byte i = 0; i < 3; i++) {
+            if (digits[i] == 0) {
+                if (digits[i + 1] == 0){
+                    digits[i] = 10;
+                } else {
+                    digits[i] = 11;
+                    break;
+                }
+            }			
+        }
+    }
+    GyverTM1637::twist(digits, delayms);
 }
 
 void GyverTM1637::runningString(uint8_t DispData[], byte amount, int delayMs) {
