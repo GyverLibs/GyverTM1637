@@ -23,6 +23,9 @@
     v1.4 - поправлены типы данных и ошибки, добавлена совместимость с ESP
     v1.4.1 - совместимость ESP32
     v1.4.2 - чуть переделан вывод точки, можно не обновлять
+	v1.5 - by DenysChuhlib: 
+	1. сделана функция котора работает во время анимации, как yield но почти как loop(в ней анимации работать не будут)
+	2. добавлена возможность выводить текст String и масив char
 */
 
 #ifndef _GyverTM1637_h
@@ -47,14 +50,18 @@ public:
     void displayClockTwist(uint8_t hrs, uint8_t mins, int delayms);			// выводит часы и минуты с эффектом скрутки
     
     void displayInt(int value);												// выводит число от -999 до 9999 (да, со знаком минус)
+	void displayIntScroll(int value, int delayms);
+	void displayIntTwist(int value, int delayms);
     
     void runningString(uint8_t DispData[], byte amount, int delayMs);  		// бегущая строка (array, sizeof(array), задержка в мс)
+	void runningString(String t, int delayMs);
+	void runningChar(uint8_t DispData[], byte amount, int delayMs);
     
     void clear(void);														// очистить дисплей
     
     void point(boolean PointFlag, bool upd = true);											// вкл / выкл точку (POINT_ON / POINT_OFF)
 
-    void brightness(uint8_t bright, uint8_t = 0x40, uint8_t = 0xc0);		// яркость 0 - 7	
+    void brightness(uint8_t bright, bool upd = true, uint8_t = 0x40, uint8_t = 0xc0);		// яркость 0 - 7	
     
     void scroll(uint8_t BitAddr, uint8_t DispData, int delayms);				// обновить значение прокруткой (адрес, ЦИФРА, задержка в мс)
     void scroll(uint8_t DispData[], int delayms);							// обновить значение прокруткой (массив ЦИФР, задержка в мс)
@@ -69,6 +76,9 @@ public:
     void twistByte(uint8_t BitAddr, uint8_t DispData, int delayms);			// обновить значение скручиванием (адрес, БАЙТ, задержка в мс)
     void twistByte(uint8_t DispData[], int delayms);							// обновить значение скручиванием (массив БАЙТ, задержка в мс)
     void twistByte(uint8_t bit0, uint8_t bit1, uint8_t bit2, uint8_t bit3, int delayms);	// скрутка посимвольно
+	
+	void delayASYNC(uint32_t t);
+	void anamationYield(void (*func)());
     
 private:
     uint8_t lastData[4];
@@ -86,9 +96,13 @@ private:
     uint8_t PointData;
 
     uint8_t Clkpin;
-    uint8_t Datapin;	
+    uint8_t Datapin;
+	
+	void (*_func)() = nullptr;
+	bool _animation;
 };
 
+uint8_t CharToByte(char t);
 void swapBytes(byte* newByte, byte oldByte, byte oldP, byte newP);
 uint8_t digToHEX(uint8_t digit);		// вернёт код цифры для displayByte
 
