@@ -11,6 +11,7 @@ GyverTM1637::GyverTM1637(uint8_t clk, uint8_t dio)
     Datapin = dio;
     pinMode(Clkpin, OUTPUT);
     pinMode(Datapin, OUTPUT);
+    pIndex = 0;
 }
 
 uint8_t digToHEX(uint8_t digit) {
@@ -123,7 +124,11 @@ void GyverTM1637::sendByte(uint8_t BitAddr, int8_t sendData) {
     stop();           //
     start();          //
     writeByte(BitAddr | 0xc0); //
-    writeByte(sendData);//
+    if(pIndex>0 && (pIndex-1)==BitAddr){
+        writeByte(sendData|0x80);//
+    }else{
+        writeByte(sendData);//
+    }
     stop();            //
     start();          //
     writeByte(Cmd_DispCtrl);//
@@ -137,7 +142,11 @@ void GyverTM1637::sendArray(uint8_t sendData[]) {
     start();          //
     writeByte(Cmd_SetAddr);//
     for (byte i = 0; i < 4; i ++) {
-        writeByte(sendData[i]);        //
+        if(pIndex>0 && (pIndex+-1)==i){
+            writeByte((sendData[i] | 0x80 ));
+        }else{
+            writeByte(sendData[i]);
+        }      
     }
     stop();           //
     start();          //
@@ -178,7 +187,11 @@ void GyverTM1637::brightness(uint8_t brightness, uint8_t SetData, uint8_t SetAdd
     update();
 }
 
-
+void GyverTM1637::setPoint(int pointIndex)
+{
+     if (pointIndex > 4 || pointIndex < 1) return;
+     pIndex =  pointIndex; 
+}
 void GyverTM1637::point(boolean PointFlag, bool upd)
 {
     if (PointFlag) PointData = 0x80;
