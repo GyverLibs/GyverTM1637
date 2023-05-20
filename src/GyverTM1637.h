@@ -84,7 +84,7 @@ private:
     uint8_t Cmd_SetAddr;
     uint8_t Cmd_DispCtrl;
     uint8_t PointData;
-
+    uint8_t pIndex;
     uint8_t Clkpin;
     uint8_t Datapin;	
 };
