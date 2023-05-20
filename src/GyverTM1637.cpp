@@ -189,7 +189,7 @@ void GyverTM1637::brightness(uint8_t brightness, uint8_t SetData, uint8_t SetAdd
 
 void GyverTM1637::setPoint(int pointIndex)
 {
-     if (pointIndex > 4 || pointIndex < 1) return;
+     if (pointIndex > 4 || pointIndex < 0) return;
      pIndex =  pointIndex; 
 }
 void GyverTM1637::point(boolean PointFlag, bool upd)
