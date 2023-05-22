@@ -51,7 +51,7 @@ public:
     void runningString(uint8_t DispData[], byte amount, int delayMs);  		// бегущая строка (array, sizeof(array), задержка в мс)
     
     void clear(void);														// очистить дисплей
-    
+    void setPoint(int pointIndex);
     void point(boolean PointFlag, bool upd = true);											// вкл / выкл точку (POINT_ON / POINT_OFF)
 
     void brightness(uint8_t bright, uint8_t = 0x40, uint8_t = 0xc0);		// яркость 0 - 7	
