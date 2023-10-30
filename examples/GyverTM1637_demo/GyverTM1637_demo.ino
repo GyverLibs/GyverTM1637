@@ -68,6 +68,7 @@ void twistClock() {
   uint32_t tmr;
   Now = millis();
   while (millis () - Now < 10000) {   // каждые 10 секунд
+   yield();
     if (millis() - tmr > 500) {       // каждые полсекунды
       tmr = millis();
       flag = !flag;
@@ -150,6 +151,7 @@ void fadeBlink() {
 
   Now = millis();
   while (millis () - Now < 3000) {    // 3 секунды
+    yield();
     for (int i = 7; i > 0; i--) {
       disp.brightness(i);   // меняем яркость
       delay(40);
@@ -166,7 +168,8 @@ void scrollClock() {
   uint32_t tmr;
   Now = millis();
   while (millis () - Now < 10000) {   // каждые 10 секунд
-    if (millis() - tmr > 500) {       // каждые полсекунды
+     yield();
+     if (millis() - tmr > 500) {       // каждые полсекунды
       tmr = millis();
       flag = !flag;
       disp.point(flag);   // выкл/выкл точки
@@ -192,7 +195,8 @@ void normClock() {
   uint32_t tmr;
   Now = millis();
   while (millis () - Now < 10000) {   // каждые 10 секунд
-    if (millis() - tmr > 500) {       // каждые полсекунды
+     yield();
+     if (millis() - tmr > 500) {       // каждые полсекунды
       tmr = millis();
       flag = !flag;
       disp.point(flag);   // выкл/выкл точки
