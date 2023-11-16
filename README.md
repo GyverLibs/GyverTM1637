@@ -5,6 +5,11 @@
 
 [![Foo](https://img.shields.io/badge/ПОДПИСАТЬСЯ-НА%20ОБНОВЛЕНИЯ-brightgreen.svg?style=social&logo=telegram&color=blue)](https://t.me/GyverLibs)
 
+|⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️<br><br>**ВНИМАНИЕ, БИБЛИОТЕКА УСТАРЕЛА! ИСПОЛЬЗУЙ БИБЛИОТЕКУ [GyverSegment](https://github.com/GyverLibs/GyverSegment), ОНА ИМЕЕТ БОЛЬШЕ ВОЗМОЖНОСТЕЙ И ПОДДЕРЖИВАЕТ ВСЕ ПОДОБНЫЕ ДИСПЛЕИ**<br><br>⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️|
+| --- |
+
+
+
 # GyverTM1637
 GyverTM1637 - бибилотека для 7 сегментного дисплея на чипе TM1637 с кучей приколюх
 - Вывод цифр массивом или прицельно
